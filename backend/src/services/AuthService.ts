@@ -1,11 +1,8 @@
 import bcrypt from 'bcrypt';
-import type { JwtPayload } from 'jsonwebtoken';
 import UserModel, { IUser } from '../models/User';
 import { signToken } from '../lib/jwt';
 
 const SALT_ROUNDS = 10;
-
-type AuthTokenPayload = JwtPayload & { userId: string };
 
 const normalizeEmail = (email: string): string => email.trim().toLowerCase();
 
@@ -49,8 +46,7 @@ const loginUser = async (
     throw new Error('Invalid credentials');
   }
 
-  const payload: AuthTokenPayload = { userId: user._id.toString() };
-  const token = signToken(payload.userId);
+  const token = signToken(user._id.toString());
 
   return { user, token };
 };

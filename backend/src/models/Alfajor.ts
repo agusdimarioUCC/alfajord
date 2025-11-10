@@ -32,6 +32,8 @@ const alfajorSchema = new Schema<IAlfajor>(
   }
 );
 
+alfajorSchema.index({ nombre: 1, marca: 1 });
+
 const AlfajorModel = model<IAlfajor>('Alfajor', alfajorSchema);
 
 export default AlfajorModel;
